@@ -4,89 +4,89 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Arial', sans-serif;
-  }
-  
-  body {
+}
+
+body {
     min-height: 100vh;
     /* You can add your background image here later */
     /* background-image: url('your-background.jpg'); */
     background-size: cover;
     background-position: center;
-  }
-  
-  .container {
+}
+
+.container {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-  }
-  
-  /* Navbar styles */
-  .navbar {
+}
+
+/* Navbar styles */
+.navbar {
     height: 70px;
     background-color: white;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     position: relative;
     z-index: 10;
-  }
-  
-  .navbar .container {
+}
+
+.navbar .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 100%;
-  }
-  
-  .logo {
+}
+
+.logo {
     font-size: 1.5rem;
     font-weight: bold;
     color: #333;
     text-decoration: none;
-  }
-  
-  .nav-links {
+}
+
+.nav-links {
     display: flex;
     gap: 20px;
-  }
-  
-  .nav-link {
+}
+
+.nav-link {
     text-decoration: none;
     color: #333;
     font-weight: 500;
     padding: 8px 16px;
     border-radius: 4px;
     transition: all 0.3s ease;
-  }
-  
-  .nav-link:hover {
+}
+
+.nav-link:hover {
     background-color: #f5f5f5;
-  }
-  
-  #register-link {
+}
+
+#register-link {
     background-color: #4f46e5;
     color: white;
-  }
-  
-  #register-link:hover {
+}
+
+#register-link:hover {
     background-color: #4338ca;
-  }
-  
-  /* Main content styles */
-  .main-content {
+}
+
+/* Main content styles */
+.main-content {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: calc(100vh - 70px);
     padding: 40px 20px;
-  }
-  
-  .form-container {
+}
+
+.form-container {
     width: 100%;
     max-width: 450px;
-  }
-  
-  /* Form styles */
-  .form-box {
+}
+
+/* Form styles */
+.form-box {
     background-color: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -94,51 +94,51 @@
     border-radius: 10px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-  
-  .form-box h2 {
+}
+
+.form-box h2 {
     text-align: center;
     margin-bottom: 30px;
     color: #333;
-  }
-  
-  .form-group {
+}
+
+.form-group {
     margin-bottom: 20px;
-  }
-  
-  .form-group label {
+}
+
+.form-group label {
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
     color: #333;
-  }
-  
-  .form-group input {
+}
+
+.form-group input {
     width: 100%;
     padding: 12px 15px;
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 16px;
     transition: border-color 0.3s;
-  }
-  
-  .form-group input:focus {
+}
+
+.form-group input:focus {
     outline: none;
     border-color: #4f46e5;
-  }
-  
-  .forgot-password {
+}
+
+.forgot-password {
     text-align: right;
     margin-bottom: 20px;
-  }
-  
-  .forgot-password a {
+}
+
+.forgot-password a {
     color: #4f46e5;
     text-decoration: none;
     font-size: 14px;
-  }
-  
-  .btn {
+}
+
+.btn {
     width: 100%;
     padding: 12px;
     background-color: #4f46e5;
@@ -149,26 +149,42 @@
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.3s;
-  }
-  
-  .btn:hover {
+}
+
+.btn:hover {
     background-color: #4338ca;
-  }
-  
-  .form-footer {
+}
+
+.form-footer {
     margin-top: 20px;
     text-align: center;
     font-size: 14px;
     color: #555;
-  }
-  
-  .form-footer a {
+}
+
+.form-footer a {
     color: #4f46e5;
     text-decoration: none;
-  }
-  
-  .hidden {
+}
+
+.hidden {
     display: none;
-  }
-  
- 
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .form-box {
+        padding: 30px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-links {
+        gap: 10px;
+    }
+
+    .nav-link {
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+}
