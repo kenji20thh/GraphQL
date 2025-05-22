@@ -1,0 +1,7 @@
+Task	Done?
+Login page that authenticates using username:password or email:password	✅
+JWT stored and used in headers (Authorization: Bearer ...)	✅
+At least 3 different pieces of user data displayed	✅
+At least 2 types of SVG-based statistic graphs	✅
+GraphQL queries: normal, nested, and using arguments	✅
+Logout feature	✅
