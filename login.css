@@ -39,12 +39,12 @@ body {
 
 .hexagon {
     position: absolute;
-    width: 100px;
-    height: 57.74px; /* height = width * 0.5774 */
+    width: 30px; /* Smaller hexagon width */
+    height: 17.32px; /* height = width * 0.5774 */
     background-color: transparent;
-    margin: 28.87px 0;
-    border-left: solid 2px rgba(48, 54, 61, 0.5);
-    border-right: solid 2px rgba(48, 54, 61, 0.5);
+    margin: 8.66px 0; /* Adjusted margin */
+    border-left: solid 1px rgba(48, 54, 61, 0.5);
+    border-right: solid 1px rgba(48, 54, 61, 0.5);
     transition: all 0.3s ease;
 }
 
@@ -53,33 +53,33 @@ body {
     content: "";
     position: absolute;
     width: 0;
-    border-left: 50px solid transparent;
-    border-right: 50px solid transparent;
+    border-left: 15px solid transparent; /* Half of width */
+    border-right: 15px solid transparent; /* Half of width */
     left: 0;
 }
 
 .hexagon:before {
     bottom: 100%;
-    border-bottom: solid 28.87px rgba(48, 54, 61, 0.5);
+    border-bottom: solid 8.66px rgba(48, 54, 61, 0.5); /* height * 0.5 */
 }
 
 .hexagon:after {
     top: 100%;
-    border-top: solid 28.87px rgba(48, 54, 61, 0.5);
+    border-top: solid 8.66px rgba(48, 54, 61, 0.5); /* height * 0.5 */
 }
 
 .hexagon.active {
-    border-left: solid 2px var(--neon-blue);
-    border-right: solid 2px var(--neon-blue);
-    box-shadow: 0 0 15px var(--neon-blue-glow);
+    border-left: solid 1px var(--neon-blue);
+    border-right: solid 1px var(--neon-blue);
+    box-shadow: 0 0 10px var(--neon-blue-glow);
 }
 
 .hexagon.active:before {
-    border-bottom: solid 28.87px var(--neon-blue);
+    border-bottom: solid 8.66px var(--neon-blue);
 }
 
 .hexagon.active:after {
-    border-top: solid 28.87px var(--neon-blue);
+    border-top: solid 8.66px var(--neon-blue);
 }
 
 /* Login Container */

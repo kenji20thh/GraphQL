@@ -3,13 +3,17 @@ document.addEventListener('DOMContentLoaded', function() {
   const containerWidth = window.innerWidth;
   const containerHeight = window.innerHeight;
   
-  // Hexagon dimensions
-  const hexWidth = 100;
-  const hexHeight = 86.6; // Approximate total height of hexagon
+  // Hexagon dimensions (smaller hexagons)
+  const hexWidth = 30;
+  const hexHeight = 26; // Total height including the pseudo-elements
+  
+  // Spacing between hexagons
+  const horizontalSpacing = hexWidth * 0.9; // Slightly less than width for a tighter pattern
+  const verticalSpacing = hexHeight * 0.75; // Adjusted for proper vertical spacing
   
   // Calculate number of hexagons needed
-  const columns = Math.ceil(containerWidth / (hexWidth * 0.75)) + 1;
-  const rows = Math.ceil(containerHeight / hexHeight) + 1;
+  const columns = Math.ceil(containerWidth / horizontalSpacing) + 1;
+  const rows = Math.ceil(containerHeight / verticalSpacing) + 1;
   
   // Create hexagons
   for (let row = 0; row < rows; row++) {
@@ -17,10 +21,10 @@ document.addEventListener('DOMContentLoaded', function() {
           const hexagon = document.createElement('div');
           hexagon.className = 'hexagon';
           
-          // Position hexagons in a grid pattern
-          // Offset every other row
-          const xPos = col * (hexWidth * 0.75);
-          const yPos = row * hexHeight + (col % 2 === 0 ? 0 : hexHeight / 2);
+          // Position hexagons in a grid pattern with proper spacing
+          // Offset every other row for the honeycomb pattern
+          const xPos = col * horizontalSpacing + (row % 2 ? horizontalSpacing / 2 : 0);
+          const yPos = row * verticalSpacing;
           
           hexagon.style.left = `${xPos}px`;
           hexagon.style.top = `${yPos}px`;
@@ -31,9 +35,11 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Add hover effect to hexagons
   document.addEventListener('mousemove', function(e) {
-      const hexagons = document.querySelectorAll('.hexagon');
       const mouseX = e.clientX;
       const mouseY = e.clientY;
+      
+      // Only get hexagons near the mouse for better performance
+      const hexagons = document.querySelectorAll('.hexagon');
       
       hexagons.forEach(hexagon => {
           const rect = hexagon.getBoundingClientRect();
@@ -46,16 +52,44 @@ document.addEventListener('DOMContentLoaded', function() {
               Math.pow(mouseY - hexCenterY, 2)
           );
           
-          // Activate hexagons within a certain radius
-          if (distance < 150) {
+          // Activate hexagons within a certain radius (smaller radius for smaller hexagons)
+          if (distance < 80) {
               hexagon.classList.add('active');
               
               // Deactivate after a delay for trailing effect
               setTimeout(() => {
                   hexagon.classList.remove('active');
-              }, 1000);
+              }, 800);
           }
       });
+  });
+  
+  // Handle window resize
+  window.addEventListener('resize', function() {
+      // Clear existing hexagons
+      container.innerHTML = '';
+      
+      // Recalculate and redraw
+      const newContainerWidth = window.innerWidth;
+      const newContainerHeight = window.innerHeight;
+      
+      const newColumns = Math.ceil(newContainerWidth / horizontalSpacing) + 1;
+      const newRows = Math.ceil(newContainerHeight / verticalSpacing) + 1;
+      
+      for (let row = 0; row < newRows; row++) {
+          for (let col = 0; col < newColumns; col++) {
+              const hexagon = document.createElement('div');
+              hexagon.className = 'hexagon';
+              
+              const xPos = col * horizontalSpacing + (row % 2 ? horizontalSpacing / 2 : 0);
+              const yPos = row * verticalSpacing;
+              
+              hexagon.style.left = `${xPos}px`;
+              hexagon.style.top = `${yPos}px`;
+              
+              container.appendChild(hexagon);
+          }
+      }
   });
   
   // Basic form validation
@@ -75,4 +109,15 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log('Login attempt:', { username, password });
       alert('Login successful! (This is just a demo)');
   });
+  
+  // Add some random initial active hexagons for visual interest
+  const hexagons = document.querySelectorAll('.hexagon');
+  for (let i = 0; i < 20; i++) {
+      const randomIndex = Math.floor(Math.random() * hexagons.length);
+      hexagons[randomIndex].classList.add('active');
+      
+      setTimeout(() => {
+          hexagons[randomIndex].classList.remove('active');
+      }, 2000);
+  }
 });
