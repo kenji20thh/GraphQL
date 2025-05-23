@@ -72,21 +72,11 @@ const handleLoginResponse = (res) => {
 
 const mainLoginProcess = async (event) => {
     event.preventDefault()
-
-    // Step 2: get credentials
     const credentials = handleLoginFormSubmit(event)
-    if (!credentials) return // stop if credentials missing
-
-    // Step 3: validate
-    if (!isValidCredentials(credentials)) return // stop if invalid
-
-    // Step 4: encode credentials
+    if (!credentials) return
+    if (!isValidCredentials(credentials)) return 
     const encodedCredentials = encodeCredentials(credentials)
-
-    // Step 5: fetch JWT token
     const loginResponse = await fetchJWTToken(encodedCredentials)
-
-    // Step 6: handle response
     handleLoginResponse(loginResponse)
 }
 
