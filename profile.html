@@ -1,12 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GraphQL</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CodeHex | Profile</title>
+  <link rel="stylesheet" href="profile.css">
 </head>
 <body>
-    <h1>aloooo</h1>
-    <button></button>
+  <div class="profile-container">
+    <header>
+      <h1><span class="code-bracket">&lt;</span>GraphQL<span class="code-bracket">/&gt;</span> Profile</h1>
+      <button id="logout-btn">Logout</button>
+    </header>
+
+    <main>
+      <h2>Welcome, <span id="username">...</span></h2>
+      <p>Email: <span id="email">...</span></p>
+      <p>Audit Ratio: <span id="auditRatio">...</span></p>
+    </main>
+  </div>
+
+  <script src="handleprofil.js"></script>
 </body>
 </html>
