@@ -14,7 +14,14 @@ const handleLoginFormSubmit = (event) => {
 const isValidCredentials = (credentials) => {
 
     const {username, password} = credentials
-    
-    return 
-
+    if (!username || !password) {
+        alert('enter credentials')
+        return false
+    }
+    const onlyAlpha = /^[A-Za-z]+$/.test(username)
+    if (!onlyAlpha) {
+        alert('username must only be alphabetic')
+        return false
+    }
+    return true
 }
