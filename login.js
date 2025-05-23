@@ -134,8 +134,8 @@ loginForm.addEventListener('submit', handleLogin)
 
 
 async function loginUser(username, password) {
-    const credentials = btoa(`${username}:${password}`); // Base64 encode
-    const url = 'https://((DOMAIN))/api/auth/signin'; // Replace with your actual domain
+    const credentials = btoa(`${username}:${password}`) // Base64 encode
+    const url = 'https://((DOMAIN))/api/auth/signin' // Replace with your actual domain
   
     try {
       const response = await fetch(url, {
