@@ -34,7 +34,7 @@ const encodeCredentials = (credentials) => {
 }
 
 const fetchJWTToken = async (encodedCredentials) => {
-    const endPoint = 'https://((DOMAIN))/api/auth/signin'
+    const endPoint = 'https://learn.zone01oujda.ma//api/auth/signin'
     try {
         const res = await fetch(endPoint, {
             method: 'POST',
@@ -60,3 +60,34 @@ const fetchJWTToken = async (encodedCredentials) => {
         }
     }
 }
+
+
+const handleLoginResponse = (res) => {
+    if (res.success) {
+        console.log('login success')
+    } else {
+        console.log('no thanks')
+    }
+}
+
+const mainLoginProcess = async (event) => {
+    event.preventDefault()
+
+    // Step 2: get credentials
+    const credentials = handleLoginFormSubmit(event)
+    if (!credentials) return // stop if credentials missing
+
+    // Step 3: validate
+    if (!isValidCredentials(credentials)) return // stop if invalid
+
+    // Step 4: encode credentials
+    const encodedCredentials = encodeCredentials(credentials)
+
+    // Step 5: fetch JWT token
+    const loginResponse = await fetchJWTToken(encodedCredentials)
+
+    // Step 6: handle response
+    handleLoginResponse(loginResponse)
+}
+
+document.getElementById('login-form').addEventListener('submit', mainLoginProcess)
