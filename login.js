@@ -54,9 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Activate hexagons within a certain radius (smaller radius for smaller hexagons)
             if (distance < 50) {
-                setTimeout(() => {
-                    hexagon.classList.add('active')
-                }, 50)
+                hexagon.classList.add('active');
 
                 // Deactivate after a delay for trailing effect
                 setTimeout(() => {
