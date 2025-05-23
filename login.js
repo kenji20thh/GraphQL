@@ -122,42 +122,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // login handling
 
-let loginForm = document.getElementById('login-form')
+// let loginForm = document.getElementById('login-form')
 
-const handleLogin = (event) => {
-    event.preventDefault()
-    const username = document.getElementById('username').value
-    const password = document.getElementById('password').value
-    loginUser(username, password)
-}
-loginForm.addEventListener('submit', handleLogin)
+// const handleLogin = (event) => {
+//     event.preventDefault()
+//     const username = document.getElementById('username').value
+//     const password = document.getElementById('password').value
+//     loginUser(username, password)
+// }
+// loginForm.addEventListener('submit', handleLogin)
 
 
-async function loginUser(username, password) {
-    const credentials = btoa(`${username}:${password}`) // Base64 encode
-    const url = 'https://((DOMAIN))/api/auth/signin' // Replace with your actual domain
+// async function loginUser(username, password) {
+//     const credentials = btoa(`${username}:${password}`) // Base64 encode
+//     const url = 'https://((DOMAIN))/api/auth/signin' // Replace with your actual domain
   
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Basic ${credentials}`,
-        },
-      });
+//     try {
+//       const response = await fetch(url, {
+//         method: 'POST',
+//         headers: {
+//           'Authorization': `Basic ${credentials}`,
+//         },
+//       });
   
-      if (!response.ok) {
-        throw new Error('Invalid credentials');
-      }
+//       if (!response.ok) {
+//         throw new Error('Invalid credentials');
+//       }
   
-      const data = await response.json();
-      const token = data.token; // JWT
+//       const data = await response.json();
+//       const token = data.token; // JWT
   
-      localStorage.setItem('jwt', token); // Save token for later requests
-      alert("goood")
-      // Redirect to profile page or do whatever you want next
-      window.location.href = 'profile.html';
-    } catch (error) {
-      alert(error.message);
-    }
-  }
+//       localStorage.setItem('jwt', token); // Save token for later requests
+//       alert("goood")
+//       // Redirect to profile page or do whatever you want next
+//       window.location.href = 'profile.html';
+//     } catch (error) {
+//       alert(error.message);
+//     }
+//   }
   
