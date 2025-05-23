@@ -39,7 +39,7 @@ const fetchJWTToken = async (encodedCredentials) => {
         const res = await fetch(endPoint, {
             method: 'POST',
             headers: {
-                'Authorization': `Basic ${encodedCredentials}` 
+                'Authorization': `Basic ${encodedCredentials}`
             }
         })
         if (!res.ok) {
@@ -48,13 +48,15 @@ const fetchJWTToken = async (encodedCredentials) => {
         const data = await res.json()
         const token = data.token
         localStorage.setItem('jwt', token)
-    } catch (error){
-        console.error('signin failed')
         return {
-            sucess : false
-            error : error.message
+            success: true,
+            token: token
         }
-        
+    } catch (error) {
+        console.error('signin failed', error.message)
+        return {
+            success: false,
+            error: error.message
+        }
     }
-
 }
