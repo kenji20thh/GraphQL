@@ -7,13 +7,12 @@ const handleLoginFormSubmit = (event) => {
         return null
     }
 
-    const credentials = {username, password}
+    const credentials = { username, password }
     return credentials
 }
 
 const isValidCredentials = (credentials) => {
-
-    const {username, password} = credentials
+    const { username, password } = credentials
     if (!username || !password) {
         alert('enter credentials')
         return false
@@ -24,4 +23,12 @@ const isValidCredentials = (credentials) => {
         return false
     }
     return true
+}
+
+const encodeCredentials = (credentials) => {
+    const { username, password } = credentials
+    const concat = username + ':' + password
+    const encodedCredentials = btoa(concat)
+    return encodedCredentials
+
 }
