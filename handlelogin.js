@@ -32,3 +32,29 @@ const encodeCredentials = (credentials) => {
     return encodedCredentials
 
 }
+
+const fetchJWTToken = async (encodedCredentials) => {
+    const endPoint = 'https://((DOMAIN))/api/auth/signin'
+    try {
+        const res = await fetch(endPoint, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Basic ${encodedCredentials}` 
+            }
+        })
+        if (!res.ok) {
+            throw new Error('Invalid credentials')
+        }
+        const data = await res.json()
+        const token = data.token
+        localStorage.setItem('jwt', token)
+    } catch (error){
+        console.error('signin failed')
+        return {
+            sucess : false
+            error : error.message
+        }
+        
+    }
+
+}
