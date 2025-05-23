@@ -104,10 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('Please enter both username and password');
             return;
         }
-
-        // Here you would typically send the form data to a server
         console.log('Login attempt:', { username, password });
-        alert('Login successful! (This is just a demo)');
     });
 
     // Add some random initial active hexagons for visual interest
@@ -129,12 +126,11 @@ let loginForm = document.getElementById('login-form')
 
 const handleLogin = (event) => {
     event.preventDefault()
-    const usernameInput = document.getElementById('username')
-    const passwordInput = document.getElementById('password')
-    console.log('Username:', username);
-    console.log('Password:', password);
+    const username = document.getElementById('username').value
+    const password = document.getElementById('password').value
+    loginUser(username, password)
 }
-loginForm.addEventListener('submit', handleLogin);
+loginForm.addEventListener('submit', handleLogin)
 
 
 async function loginUser(username, password) {
@@ -157,7 +153,7 @@ async function loginUser(username, password) {
       const token = data.token; // JWT
   
       localStorage.setItem('jwt', token); // Save token for later requests
-  
+      alert("goood")
       // Redirect to profile page or do whatever you want next
       window.location.href = 'profile.html';
     } catch (error) {
