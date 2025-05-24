@@ -63,7 +63,7 @@ const fetchJWTToken = async (encodedCredentials) => {
 
 const handleLoginResponse = (res) => {
     if (res.success) {
-        // window.location.replace('profile.html')
+        window.location.replace('profile.html')
         console.log('login success')
     } else {
         alert('login failed: ' + res.error)
