@@ -45,8 +45,7 @@ const fetchJWTToken = async (encodedCredentials) => {
         if (!res.ok) {
             throw new Error('Invalid credentials')
         }
-        const data = await res.json()
-        const token = data.token
+        const token = await res.text()
         localStorage.setItem('jwt', token)
         return {
             success: true,
@@ -76,7 +75,7 @@ const mainLoginProcess = async (event) => {
     event.preventDefault()
     const credentials = handleLoginFormSubmit(event)
     if (!credentials) return
-    if (!isValidCredentials(credentials)) return 
+    if (!isValidCredentials(credentials)) return
     const encodedCredentials = encodeCredentials(credentials)
     const loginResponse = await fetchJWTToken(encodedCredentials)
     handleLoginResponse(loginResponse)

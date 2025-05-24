@@ -1,38 +1,42 @@
 const token = localStorage.getItem('jwt')
 if (!token) window.location.replace('login.html')
 
+
+console.log(token)
 document.getElementById('logout-btn').addEventListener('click', () => {
     localStorage.removeItem('jwt')
     window.location.replace('login.html')
 })
 
-const query = `
-{
-  user {
-    id
-    login
-    email
-  }
-}
-`
-
 const fetchUserData = async () => {
     try {
-        const res = await fetch('https://learn.zone01oujda.ma/api/graphql-engine/v1/graphql', {
+        const res = await fetch('https://learn.zone01oujda.ma//api/graphql-engine/v1/graphql', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
-                'X-Hasura-Role': 'student' // optional, but recommended
+                'X-Hasura-Role': 'student'
             },
-            body: JSON.stringify({ query })
+            body: JSON.stringify({
+                query: `
+        {
+          user {
+            id
+            login
+            email
+          }
+        }
+        `
+            })
         })
 
-        if (!res.ok) throw new Error('failed at fetching user data')
-
         const result = await res.json()
-        console.log(result)
+        if (result.errors) {
+            console.error('GraphQL Errors:', JSON.stringify(result.errors, null, 2))
+            throw new Error('GraphQL query failed')
+        }
 
+        console.log(result)
         const user = result.data.user[0]
         if (!user) throw new Error('user not found')
 
@@ -46,3 +50,5 @@ const fetchUserData = async () => {
 }
 
 fetchUserData()
+
+localStorage.getItem('jwt')
