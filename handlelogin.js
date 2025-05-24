@@ -45,8 +45,7 @@ const fetchJWTToken = async (encodedCredentials) => {
         if (!res.ok) {
             throw new Error('Invalid credentials')
         }
-        const data = await res.json()
-        const token = data.token?.trim() // <-- Trim just in case
+        const token = (await res.text()).trim()
         localStorage.setItem('jwt', token)
             return {
             success: true,
