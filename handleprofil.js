@@ -69,6 +69,7 @@ const fetchUserData = async () => {
             return
         }
         const user = result.data.user[0]
+        console.log(user)
         if (!user) throw new Error('User not found')
         document.getElementById('username').textContent = user.login
         document.getElementById('email').textContent = user.email
