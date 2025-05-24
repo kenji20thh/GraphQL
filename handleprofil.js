@@ -4,9 +4,8 @@ if (token.startsWith('"') && token.endsWith('"')) {
     token = token.slice(1, -1)
 }
 
-// Also trim whitespace just in case
 token = token.trim()
-console.log('JWT Token:', token) // for debug
+console.log('JWT Token:', token) 
 
 document.getElementById('logout-btn').addEventListener('click', () => {
     localStorage.removeItem('jwt')
