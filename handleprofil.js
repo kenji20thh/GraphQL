@@ -12,6 +12,7 @@ document.getElementById('logout-btn').addEventListener('click', () => {
     window.location.replace('login.html')
 })
 
+const usernameDisplay = document.getElementById('username-display')
 
 let profileData = {}
 let audits = []
@@ -65,6 +66,8 @@ const fetchUserData = async () => {
                         id
                         login
                         email
+                        firstName
+                        lastName
                         transactions(where: {type: {_eq: "xp"}}) {
                             amount
                             createdAt
@@ -106,9 +109,10 @@ const fetchUserData = async () => {
         }
         const user = result.data.user[0]
         console.log(user)
-        console.log(user.login, user.email)
+        // console.log(user.login, user.email)
         if (!user) throw new Error('User not found')
-        document.getElementById('username').textContent = user.login
+        document.getElementById('full-name').textContent = (user.firstName || 'alo') + ' ' + (user.lastName || 'alo')
+        usernameDisplay.textContent = user.login
         document.getElementById('email').textContent = user.email
         profileData = user
         console.log("Fetched Full Profile Data:", profileData)
