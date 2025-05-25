@@ -121,7 +121,29 @@
   .code-bracket {
     color: #6c63ff;
   }
+
+  .button-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
   
+  .button-row button {
+    padding: 10px 20px;
+    border: 1px solid #333;
+    background-color: white;
+    cursor: pointer;
+    font-weight: 500;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .button-row button.selected {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+  }
+    
   /* Logout Button */
   #logout-btn {
     padding: 8px 16px;

@@ -12,6 +12,7 @@ document.getElementById('logout-btn').addEventListener('click', () => {
     window.location.replace('login.html')
 })
 
+const auditRatio = document.getElementById('auditRatio')
 const usernameDisplay = document.getElementById('username-display')
 
 let profileData = {}
@@ -38,18 +39,17 @@ notificationEl.addEventListener('click', () => {
         }
     }
 })
-// notificationCountEl.innerHTML = audits.length
+notificationCountEl.innerHTML = audits.length
 
-// const moduleButtons = document.querySelectorAll('#button-row button')
-// moduleButtons.forEach((btn) => {
-//     btn.addEventListener('click', () => {
-//         moduleButtons.forEach( (b) => {
-//             b.classList.remove = 'selected'
-//         })
-//         btn.classList.add = 'selected'
-//         // to add logic after
-//     })
-// } )
+const moduleButtons = document.querySelectorAll('.button-row button')
+
+moduleButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+        moduleButtons.forEach((b) => b.classList.remove('selected'))
+        btn.classList.add('selected')
+        console.log(`Selected: ${btn.textContent}`)
+    })
+})
 
 const fetchUserData = async () => {
     try {
