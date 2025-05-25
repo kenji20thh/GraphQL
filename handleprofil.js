@@ -13,6 +13,12 @@ document.getElementById('logout-btn').addEventListener('click', () => {
 })
 
 let profileData = {}
+let audits = []
+
+const notificationCountEl = document.getElementById('notification-count')
+const auditListEl = document.getElementById('audit-list')
+const notificationEl = document.getElementById('notification')
+
 
 const fetchUserData = async () => {
     try {
