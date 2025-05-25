@@ -5,12 +5,13 @@ if (token.startsWith('"') && token.endsWith('"')) {
 }
 
 token = token.trim()
-console.log('JWT Token:', token) 
+console.log('JWT Token:', token)
 
 document.getElementById('logout-btn').addEventListener('click', () => {
     localStorage.removeItem('jwt')
     window.location.replace('login.html')
 })
+
 
 let profileData = {}
 let audits = []
@@ -19,6 +20,29 @@ const notificationCountEl = document.getElementById('notification-count')
 const auditListEl = document.getElementById('audit-list')
 const notificationEl = document.getElementById('notification')
 
+notificationEl.addEventListener('click', () => {
+    if (auditListEl.style.display == 'block') {
+        auditListEl.style.display = 'none'
+    }
+    else {
+        auditListEl.style.display = 'block'
+        if (audits.length) {
+            auditListEl.innerHTML = audits.map(a => `<div>${a.title}</div>`).join('')
+        } else {
+            notificationCountEl.style.display = 'none'
+            auditListEl.style.display = 'none'
+            notificationEl.style.display = 'none'
+        }
+    }
+})
+notificationCountEl.innerHTML = audits.length
+
+const moduleButtons = document.querySelectorAll('#button-row button')
+moduleButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+        
+    })
+} )
 
 const fetchUserData = async () => {
     try {
