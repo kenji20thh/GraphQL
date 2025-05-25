@@ -2,42 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Profile Dashboard</title>
-  <link rel="stylesheet" href="profile.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CodeHex | Profile</title>
+  <link rel="stylesheet" href="profile.css">
 </head>
 <body>
-
-  <header>
-    <div id="notification" title="Show audits">
-      <!-- Bell icon SVG -->
-      <svg id="notification-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <path d="M12 24c1.104 0 2-.896 2-2h-4a2 2 0 0 0 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V6a1.5 1.5 0 0 0-3 0v.68C7.63 7.36 6 9.92 6 13v5l-2 2v1h16v-1l-2-2z"/>
-      </svg>
-      <div id="notification-count">0</div>
-      <div id="audit-list"></div>
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="top-bar-right">
+      <div id="notification" class="notification-icon">
+        🔔
+        <span id="notification-count" class="notification-count">0</span>
+      </div>
+      <div id="audit-list" class="audit-list" style="display: none;"></div>
     </div>
+  </div>
 
-    <div id="username">Username</div>
+  <!-- Main Profile Container -->
+  <div class="profile-container">
+    <header>
+      <h1><span class="code-bracket">&lt;</span>GraphQL<span class="code-bracket">/&gt;</span> Profile</h1>
+      <button id="logout-btn">Logout</button>
+    </header>
 
-    <button id="logout-btn" title="Logout" aria-label="Logout">
-      <!-- Logout icon SVG -->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <path d="M16 13v-2H7V8l-5 4 5 4v-3zM19 3h-8v2h8v14h-8v2h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"/>
-      </svg>
-    </button>
-  </header>
+    <main>
+      <h2>Welcome, <span id="username">...</span></h2>
+      <p>Email: <span id="email">...</span></p>
+      <p>Audit Ratio: <span id="auditRatio">...</span></p>
+    </main>
+  </div>
 
-  <main>
-    <div id="welcome-msg">Welcome, Firstname Lastname</div>
-
-    <div id="button-row">
-      <button id="piscine-go-btn">Piscine Go</button>
-      <button id="module-41-btn" class="selected">Module 41</button>
-      <button id="piscine-js-btn">Piscine JS</button>
-    </div>
-  </main>
-
-  <script src="script.js"></script>
+  <script src="handleprofil.js"></script>
 </body>
 </html>

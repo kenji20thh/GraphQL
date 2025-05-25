@@ -20,6 +20,12 @@ const notificationCountEl = document.getElementById('notification-count')
 const auditListEl = document.getElementById('audit-list')
 const notificationEl = document.getElementById('notification')
 
+if (!audits.length) {
+    notificationCountEl.style.display = 'none'
+    auditListEl.style.display = 'none'
+    notificationEl.style.display = 'none'
+}
+
 notificationEl.addEventListener('click', () => {
     if (auditListEl.style.display == 'block') {
         auditListEl.style.display = 'none'
@@ -28,25 +34,21 @@ notificationEl.addEventListener('click', () => {
         auditListEl.style.display = 'block'
         if (audits.length) {
             auditListEl.innerHTML = audits.map(a => `<div>${a.title}</div>`).join('')
-        } else {
-            notificationCountEl.style.display = 'none'
-            auditListEl.style.display = 'none'
-            notificationEl.style.display = 'none'
         }
     }
 })
-notificationCountEl.innerHTML = audits.length
+// notificationCountEl.innerHTML = audits.length
 
-const moduleButtons = document.querySelectorAll('#button-row button')
-moduleButtons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-        moduleButtons.forEach((b) => {
-            b.classList.remove = 'selected'
-        })
-        btn.classList.add = 'selected'
-        // to add logic after
-    })
-} )
+// const moduleButtons = document.querySelectorAll('#button-row button')
+// moduleButtons.forEach((btn) => {
+//     btn.addEventListener('click', () => {
+//         moduleButtons.forEach( (b) => {
+//             b.classList.remove = 'selected'
+//         })
+//         btn.classList.add = 'selected'
+//         // to add logic after
+//     })
+// } )
 
 const fetchUserData = async () => {
     try {
@@ -104,6 +106,7 @@ const fetchUserData = async () => {
         }
         const user = result.data.user[0]
         console.log(user)
+        console.log(user.login, user.email)
         if (!user) throw new Error('User not found')
         document.getElementById('username').textContent = user.login
         document.getElementById('email').textContent = user.email
