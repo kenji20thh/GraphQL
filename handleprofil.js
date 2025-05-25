@@ -40,7 +40,11 @@ notificationCountEl.innerHTML = audits.length
 const moduleButtons = document.querySelectorAll('#button-row button')
 moduleButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
-        
+        moduleButtons.forEach((b) => {
+            b.classList.remove = 'selected'
+        })
+        btn.classList.add = 'selected'
+        // to add logic after
     })
 } )
 
