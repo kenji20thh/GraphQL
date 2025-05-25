@@ -1,23 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <title>CodeHex | Profile</title>
   <link rel="stylesheet" href="profile.css">
 </head>
+
 <body>
   <!-- Top Bar -->
   <div class="top-bar">
     <div class="top-bar-right">
-      <div id="notification" class="notification-icon">
+      <span id="username-display" class="username-display">Username</span>
+
+      <button id="logout-btn" class="icon-button" title="Logout">
+        <span class="material-icons">logout</span>
+      </button>
+
+      <div id="notification" class="notification-icon" title="Notifications">
         🔔
         <span id="notification-count" class="notification-count">0</span>
       </div>
+
       <div id="audit-list" class="audit-list" style="display: none;"></div>
     </div>
   </div>
-
   <!-- Main Profile Container -->
   <div class="profile-container">
     <header>
@@ -34,4 +43,5 @@
 
   <script src="handleprofil.js"></script>
 </body>
+
 </html>
