@@ -68,26 +68,80 @@ const fetchUserData = async () => {
                         email
                         firstName
                         lastName
-                        transactions(where: {type: {_eq: "xp"}}) {
+                        createdAt
+                        updatedAt
+                        campus
+                        attrs
+                        totalUp
+                        totalDown
+                        
+                        transactions(where: {type: {_eq: "xp"}}, order_by: {createdAt: desc}) {
+                            id
+                            type
                             amount
                             createdAt
+                            updatedAt
+                            path
+                            objectId
                             object {
+                                id
                                 name
                                 type
+                                attrs
                             }
                         }
-                        progresses {
+                        
+                        progresses(order_by: {createdAt: desc}) {
+                            id
                             grade
                             createdAt
+                            updatedAt
+                            path
+                            isDone
+                            objectId
+                            object {
+                                id
+                                name
+                                type
+                                attrs
+                            }
+                        }
+                        
+                        results(order_by: {createdAt: desc}) {
+                            id
+                            grade
+                            createdAt
+                            updatedAt
+                            path
+                            type
+                            objectId
+                            object {
+                                id
+                                name
+                                type
+                                attrs
+                            }
+                        }
+                        
+                        audits: transactions(where: {type: {_eq: "up"}}) {
+                            id
+                            type
+                            amount
+                            createdAt
+                            path
+                            objectId
                             object {
                                 id
                                 name
                                 type
                             }
                         }
-                        results {
-                            grade
+                        
+                        events {
+                            id
                             createdAt
+                            updatedAt
+                            path
                             object {
                                 id
                                 name
@@ -116,19 +170,7 @@ const fetchUserData = async () => {
         document.getElementById('email').textContent = user.email
         profileData = user
 
-        const validatedProjects = profileData.results.filter(result => result.object.type === 'project' && result.grade >= 1)
-        let totalXP = 0
-        for (const result of validatedProjects) {
-          const matchingXP = profileData.transactions.find(tx =>
-            tx.object?.name === result.object.name &&
-            tx.object?.type === 'project'
-          )
-          if (matchingXP) {
-            totalXP += matchingXP.amount
-          }
-        }
-        console.log(totalXP)
-        document.getElementById('total-xp').textContent = `Total XP: ${Math.floor(totalXP / 1000)} kB`
+       
         
         
         console.log("Fetched Full Profile Data:", profileData)
