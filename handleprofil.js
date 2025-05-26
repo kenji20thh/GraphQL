@@ -116,10 +116,20 @@ const fetchUserData = async () => {
         document.getElementById('email').textContent = user.email
         profileData = user
 
-        const totalXP = user.result.reduce((sum, tx) => sum + tx.amount, 0)
-        const xpKB = (totalXP / 1000).toFixed(2)
-        document.getElementById('total-xp').textContent = xpKB
-
+        const validatedProjects = profileData.results.filter(result => result.object.type === 'project' && result.grade >= 1)
+        let totalXP = 0
+        for (const result of validatedProjects) {
+          const matchingXP = profileData.transactions.find(tx =>
+            tx.object?.name === result.object.name &&
+            tx.object?.type === 'project'
+          )
+          if (matchingXP) {
+            totalXP += matchingXP.amount
+          }
+        }
+        console.log(totalXP)
+        document.getElementById('total-xp').textContent = `Total XP: ${Math.floor(totalXP / 1000)} kB`
+        
         
         console.log("Fetched Full Profile Data:", profileData)
     } catch (error) {
