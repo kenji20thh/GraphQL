@@ -115,6 +115,12 @@ const fetchUserData = async () => {
         usernameDisplay.textContent = user.login
         document.getElementById('email').textContent = user.email
         profileData = user
+
+        const totalXP = user.result.reduce((sum, tx) => sum + tx.amount, 0)
+        const xpKB = (totalXP / 1000).toFixed(2)
+        document.getElementById('total-xp').textContent = xpKB
+
+        
         console.log("Fetched Full Profile Data:", profileData)
     } catch (error) {
         console.error('Error loading profile:', error.message)
