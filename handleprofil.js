@@ -69,7 +69,6 @@ const fetchUserData = async () => {
                         firstName
                         lastName
                         createdAt
-                        updatedAt
                         campus
                         attrs
                         totalUp
@@ -80,7 +79,6 @@ const fetchUserData = async () => {
                             type
                             amount
                             createdAt
-                            updatedAt
                             path
                             objectId
                             object {
@@ -95,7 +93,6 @@ const fetchUserData = async () => {
                             id
                             grade
                             createdAt
-                            updatedAt
                             path
                             isDone
                             objectId
@@ -111,7 +108,6 @@ const fetchUserData = async () => {
                             id
                             grade
                             createdAt
-                            updatedAt
                             path
                             type
                             objectId
@@ -140,7 +136,6 @@ const fetchUserData = async () => {
                         events {
                             id
                             createdAt
-                            updatedAt
                             path
                             object {
                                 id
