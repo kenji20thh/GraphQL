@@ -68,75 +68,26 @@ const fetchUserData = async () => {
                         email
                         firstName
                         lastName
-                        createdAt
-                        campus
-                        attrs
-                        totalUp
-                        totalDown
-                        
-                        transactions(where: {type: {_eq: "xp"}}, order_by: {createdAt: desc}) {
-                            id
-                            type
+                        transactions(where: {type: {_eq: "xp"}}) {
                             amount
                             createdAt
-                            path
-                            objectId
                             object {
-                                id
                                 name
                                 type
-                                attrs
                             }
                         }
-                        
-                        progresses(order_by: {createdAt: desc}) {
-                            id
+                        progresses {
                             grade
                             createdAt
-                            path
-                            isDone
-                            objectId
                             object {
                                 id
                                 name
                                 type
-                                attrs
                             }
                         }
-                        
-                        results(order_by: {createdAt: desc}) {
-                            id
+                        results {
                             grade
                             createdAt
-                            path
-                            type
-                            objectId
-                            object {
-                                id
-                                name
-                                type
-                                attrs
-                            }
-                        }
-                        
-                        audits: transactions(where: {type: {_eq: "up"}}) {
-                            id
-                            type
-                            amount
-                            createdAt
-                            path
-                            objectId
-                            object {
-                                id
-                                name
-                                type
-                            }
-                        }
-                        
-                        events {
-                            id
-                            createdAt
-                            path
                             object {
                                 id
                                 name
