@@ -120,10 +120,19 @@ const fetchUserData = async () => {
         const auditRatio = user.auditRatio
         document.getElementById('audit-ratio').textContent = `Audit Ratio: ${auditRatio.toLocaleString()}`
 
-        const totalXP = user.transactions
-        .filter(t => t.type === "xp" && t.object.type === "project")
-        .reduce((sum, t) => sum + t.amount, 0)
-            console.log(totalXP)
+        let totalXp = 0;
+
+        user.progresses.forEach(progress => {
+            const isValidated = progress.grade === 1;
+            const type = progress.object?.type;
+
+            if (isValidated && (type === "project" || type === "exam")) {
+                totalXp += progress.object.xp || 0; // fallback to 0 if xp is undefined
+            }
+        });
+
+        console.log("Total XP for validated projects and exams:", totalXp);
+        console.log(totalXp)
         //console.log(token)
         //console.log("Fetched Full Profile Data:", profileData)
     } catch (error) {
