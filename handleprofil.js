@@ -121,9 +121,9 @@ const fetchUserData = async () => {
         document.getElementById('audit-ratio').textContent = `Audit Ratio: ${auditRatio.toLocaleString()}`
 
         const totalXP = user.transactions
-            .filter(t => t.type === "xp")
-            .reduce((sum, t) => sum + t.amount, 0)
-
+        .filter(t => t.type === "xp" && t.object.type === "project")
+        .reduce((sum, t) => sum + t.amount, 0)
+            console.log(totalXP)
         //console.log(token)
         //console.log("Fetched Full Profile Data:", profileData)
     } catch (error) {
