@@ -1,0 +1,72 @@
+.section {
+  background: rgb(197, 174, 174);
+  color: black;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+
+  .title {
+    width: 100%;
+    font-size: large;
+    font-weight: bolder;
+    text-align: center;
+  }
+}
+
+.HomePage {
+  padding: 20px;
+  gap: 10px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+.events {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+  .event {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+  }
+
+  .event .name {
+    cursor: default;
+    height: fit-content;
+    border: 1px solid black;
+    padding: 10px 40px;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .event .name:hover {
+    transform: scale(1.1);
+  }
+  .level {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid blue;
+    padding: 5px 10px;
+    width: fit-content;
+    border-radius: 10px;
+    font-size: large;
+    font-weight: bold;
+  }
+}

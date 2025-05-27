@@ -5,7 +5,7 @@ if (token.startsWith('"') && token.endsWith('"')) {
 }
 
 token = token.trim()
-console.log('JWT Token:', token)
+// console.log('JWT Token:', token)
 
 document.getElementById('logout-btn').addEventListener('click', () => {
     localStorage.removeItem('jwt')
@@ -68,6 +68,7 @@ const fetchUserData = async () => {
                         email
                         firstName
                         lastName
+                        auditRatio
                         transactions(where: {type: {_eq: "xp"}}) {
                             amount
                             createdAt
@@ -116,10 +117,15 @@ const fetchUserData = async () => {
         document.getElementById('email').textContent = user.email
         profileData = user
 
-       
-        
-        
-        console.log("Fetched Full Profile Data:", profileData)
+        const auditRatio = user.auditRatio
+        document.getElementById('audit-ratio').textContent = `Audit Ratio: ${auditRatio.toLocaleString()}`
+
+        const totalXP = user.transactions
+            .filter(t => t.type === "xp")
+            .reduce((sum, t) => sum + t.amount, 0)
+
+        //console.log(token)
+        //console.log("Fetched Full Profile Data:", profileData)
     } catch (error) {
         console.error('Error loading profile:', error.message)
         alert('Failed loading profile data')

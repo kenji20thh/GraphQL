@@ -1,0 +1,75 @@
+.header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  .fullname,
+  .login {
+    font-size: large;
+    font-weight: bold;
+  }
+
+  > img {
+    width: 50px;
+    height: 100%;
+  }
+
+  .icon {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+
+    .placeholder {
+      visibility: hidden;
+      height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      flex: initial;
+    }
+
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+    .active + .dropDown {
+      display: flex;
+    }
+    .dropDown {
+      margin-top: 10px;
+      width: 100%;
+      position: absolute;
+      display: none;
+      top: 100%;
+      flex-direction: column;
+      white-space: nowrap;
+      right: 0;
+      width: fit-content;
+      text-align: center;
+      .section {
+        box-shadow: 0 0 14px 3px black;
+        margin-bottom: 10px;
+      }
+      .logout {
+        cursor: pointer;
+        font-weight: 900;
+        background: rgb(0, 0, 0);
+        color: rgba(255, 255, 255, 0.747);
+        border-radius: 8px;
+        width: fit-content;
+        padding: 7px 15px;
+        margin: auto;
+        display: flex;
+        gap: 10px;
+      }
+      .logout:hover {
+        transform: scale(1.07);
+        box-shadow: 0px 0 5px 0 white;
+      }
+    }
+  }
+}

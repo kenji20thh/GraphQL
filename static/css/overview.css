@@ -1,0 +1,56 @@
+.Overview {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 100%;
+  gap: 10px;
+  
+  .head {
+    width: 100%;
+    text-align: center;
+    .cohort {
+      white-space: nowrap;
+    }
+    .up, .down {
+      display: flex;
+      gap: 10px;
+    }
+  }
+}
+.ratio {
+  width: 100%;
+}
+.ratio,
+.skills {
+  white-space: nowrap;
+  text-align: center;
+  font-weight: 500;
+  width: 100%;
+}
+
+
+.ratio > * {
+  font-weight: initial;
+  text-align: start;
+}
+
+.graph .head {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 30px;
+}
+
+.balance {
+  display: flex;
+}
+
+.balance > * {
+  margin-left: 10px;
+  font-weight: 500;
+}
+
+.balance .low {
+  color: rgb(165, 2, 2);
+}
+
