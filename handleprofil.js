@@ -122,6 +122,21 @@ const fetchUserData = async () => {
         document.getElementById('last-name').textContent = user.lastName || 'N/A'
         document.getElementById('email').textContent = user.email
 
+        const profileImageUrl = "https://discord.zone01oujda.ma/assets/pictures/" + user.login + ".jpg"
+        const profileRoot = document.getElementById("profile-root")
+        profileRoot.innerHTML = ''
+
+        // Create and insert the image inside the profile image container
+        const profileImageContainer = document.createElement('div')
+        profileImageContainer.className = 'profile-image'
+
+        const img = document.createElement('img')
+        img.src = profileImageUrl
+        img.alt = user.login
+
+        profileImageContainer.appendChild(img)
+        profileRoot.appendChild(profileImageContainer)
+
         profileData = user
 
         const auditRatio = user.auditRatio
