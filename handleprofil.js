@@ -61,42 +61,60 @@ const fetchUserData = async () => {
             },
             body: JSON.stringify({
                 query: `
-                query {
-                    user {
-                        id
-                        login
-                        email
-                        firstName
-                        lastName
-                        auditRatio
-                        transactions(where: {type: {_eq: "xp"}}) {
-                            amount
-                            createdAt
-                            object {
-                                name
-                                type
-                            }
-                        }
-                        progresses {
-                            grade
-                            createdAt
-                            object {
-                                id
-                                name
-                                type
-                            }
-                        }
-                        results {
-                            grade
-                            createdAt
-                            object {
-                                id
-                                name
-                                type
-                            }
-                        }
-                    }
-                }
+query {
+  user {
+    id
+    login
+    email
+    firstName
+    lastName
+    auditRatio
+
+    # existing detailed transactions filtered by type "xp"
+    transactions(where: {type: {_eq: "xp"}}) {
+      amount
+      createdAt
+      object {
+        name
+        type
+      }
+    }
+
+    # new aggregate field for xp transactions filtered by event.object.name = "Module"
+    transactions_aggregate(
+      where: {
+        type: { _eq: "xp" }
+        event: { object: { name: { _eq: "Module" } } }
+      }
+    ) {
+      aggregate {
+        sum {
+          amount
+        }
+      }
+    }
+
+    progresses {
+      grade
+      createdAt
+      object {
+        id
+        name
+        type
+      }
+    }
+
+    results {
+      grade
+      createdAt
+      object {
+        id
+        name
+        type
+      }
+    }
+  }
+}
                 `
             })
         })
@@ -109,8 +127,6 @@ const fetchUserData = async () => {
             return
         }
         const user = result.data.user[0]
-        console.log(user)
-        // console.log(user.login, user.email)
         if (!user) throw new Error('User not found')
         document.getElementById('full-name').textContent = (user.firstName || 'alo') + ' ' + (user.lastName || 'alo')
         usernameDisplay.textContent = user.login
@@ -120,22 +136,9 @@ const fetchUserData = async () => {
         const auditRatio = user.auditRatio
         document.getElementById('audit-ratio').textContent = `Audit Ratio: ${auditRatio.toLocaleString()}`
 
-        const totalXp = user.progresses.reduce((acc, p) => {
-            if (
-              p.grade === 1 &&
-              p.object &&
-              (p.object.type === 'project' || p.object.type === 'exam') &&
-              typeof p.object.xp === 'number'
-            ) {
-              return acc + p.object.xp;
-            }
-            return acc;
-          }, 0);
-          
-        console.log("Total XP for validated projects and exams:", totalXp);
-        console.log(totalXp)
-        //console.log(token)
-        //console.log("Fetched Full Profile Data:", profileData)
+        const xpSum = user.transactions_aggregate.aggregate.sum.amount || 0
+        
+        document.getElementById('total-xp').textContent = `XP Sum: ${xpSum.toLocaleString()}`
     } catch (error) {
         console.error('Error loading profile:', error.message)
         alert('Failed loading profile data')
