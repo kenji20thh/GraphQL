@@ -1,59 +1,261 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <title>Profile</title>
-  <link rel="stylesheet" href="profile.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-image::before {
+            content: "👤";
+            font-size: 24px;
+        }
+
+        .username {
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 8px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .logout-icon {
+            width: 20px;
+            height: 20px;
+            stroke: white;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+        }
+
+        .card-header {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #4a5568;
+            text-transform: capitalize;
+        }
+
+        .info-value {
+            color: #2d3748;
+            font-weight: 500;
+        }
+
+        .expand-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 16px;
+            width: 100%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .expand-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .expand-icon {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .expand-icon.rotated {
+            transform: rotate(180deg);
+        }
+
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .expandable-content.expanded {
+            max-height: 400px;
+        }
+
+        .username-item {
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .loading {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+
+            .card {
+                margin: 20px 0;
+            }
+        }
+    </style>
 </head>
-
 <body>
-  <!-- Top Bar -->
-  <div class="top-bar">
-    <div class="top-bar-right">
-      <span id="username-display" class="username-display">Username</span>
-
-      <button id="logout-btn" class="icon-button" title="Logout">
-        <span class="material-icons">logout</span>
-      </button>
-
-      <div id="notification" class="notification-icon" title="Notifications">
-        🔔
-        <span id="notification-count" class="notification-count">0</span>
-      </div>
-
-      <div id="audit-list" class="audit-list" style="display: none;"></div>
-    </div>
-  </div>
-  <!-- Main Profile Container -->
-  <div class="profile-container">
-    <header>
-      <h1><span class="code-bracket">&lt;</span>GraphQL<span class="code-bracket">/&gt;</span> Profile</h1>
-    </header>
-
-    <main>
-
-      <h2>Welcome, <span id="full-name">...</span></h2>
-      <p>Email: <span id="email">...</span></p>
-      <p>Audit Ratio: <span id="auditRatio">...</span></p>
-
-
-      <div id="xp-and-projects">
-        <h3>Your XP and Last Validated Projects</h3>
-        <div id="total-xp">Total XP: 0</div>
-        <div id="audit-ratio">auditRatio</div>
-        <div id="last-projects">
-          <h4>Last Two Validated Projects:</h4>
-          <ul id="validated-projects-list"></ul>
+    <div class="header">
+        <div class="profile-section">
+            <div id="profile-image">
+                <!-- Placeholder for profile image -->
+            </div>
+            <div class="username" id="username-display">Loading...</div>
         </div>
-      </div>
-      
-    </main>
-  </div>
+        
+        <button class="logout-btn" id="logout-btn" aria-label="Logout">
+            <svg class="logout-icon" viewBox="0 0 24 24">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                <polyline points="16,17 21,12 16,7"/>
+                <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+        </button>
+    </div>
 
-  <script src="handleprofil.js"></script>
+    <div class="card">
+        <div class="card-header">Welcome <span id="full-name">Loading...</span></div>
+        
+        <div class="username-item">
+            <div class="info-item">
+                <span class="info-label">Username</span>
+                <span class="info-value" id="username-display-card">Loading...</span>
+            </div>
+        </div>
+
+        <div class="expandable-content" id="expandableContent">
+            <div class="info-item">
+                <span class="info-label">First Name</span>
+                <span class="info-value" id="first-name">Loading...</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Last Name</span>
+                <span class="info-value" id="last-name">Loading...</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Email</span>
+                <span class="info-value" id="email">Loading...</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Campus</span>
+                <span class="info-value" id="campus">Zone01 Oujda</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label" id="total-xp">XP: Loading...</span>
+                <span class="info-value"></span>
+            </div>
+            <div class="info-item">
+                <span class="info-label" id="audit-ratio">Audit Ratio: Loading...</span>
+                <span class="info-value"></span>
+            </div>
+        </div>
+
+        <button class="expand-btn" onclick="toggleExpand()" id="expandBtn">
+            <span id="expandText">Show Details</span>
+            <svg class="expand-icon" id="expandIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <polyline points="6,9 12,15 18,9"></polyline>
+            </svg>
+        </button>
+    </div>
+
+    <script src="handleprofil.js"></script>
 </body>
-
 </html>

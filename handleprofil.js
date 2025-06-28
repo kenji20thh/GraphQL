@@ -1,55 +1,43 @@
+let isExpanded = false;
+
+function toggleExpand() {
+    const content = document.getElementById('expandableContent');
+    const btn = document.getElementById('expandBtn');
+    const text = document.getElementById('expandText');
+    const icon = document.getElementById('expandIcon');
+
+    isExpanded = !isExpanded;
+
+    if (isExpanded) {
+        content.classList.add('expanded');
+        text.textContent = 'Hide Details';
+        icon.classList.add('rotated');
+    } else {
+        content.classList.remove('expanded');
+        text.textContent = 'Show Details';
+        icon.classList.remove('rotated');
+    }
+}
+
+// Your existing functionality
 let token = localStorage.getItem('jwt')
+
 if (!token) window.location.replace('login.html')
+
 if (token.startsWith('"') && token.endsWith('"')) {
     token = token.slice(1, -1)
 }
 
 token = token.trim()
-// console.log('JWT Token:', token)
 
 document.getElementById('logout-btn').addEventListener('click', () => {
     localStorage.removeItem('jwt')
     window.location.replace('login.html')
 })
 
-const auditRatio = document.getElementById('auditRatio')
 const usernameDisplay = document.getElementById('username-display')
-
 let profileData = {}
 let audits = []
-
-const notificationCountEl = document.getElementById('notification-count')
-const auditListEl = document.getElementById('audit-list')
-const notificationEl = document.getElementById('notification')
-
-if (!audits.length) {
-    notificationCountEl.style.display = 'none'
-    auditListEl.style.display = 'none'
-    notificationEl.style.display = 'none'
-}
-
-notificationEl.addEventListener('click', () => {
-    if (auditListEl.style.display == 'block') {
-        auditListEl.style.display = 'none'
-    }
-    else {
-        auditListEl.style.display = 'block'
-        if (audits.length) {
-            auditListEl.innerHTML = audits.map(a => `<div>${a.title}</div>`).join('')
-        }
-    }
-})
-notificationCountEl.innerHTML = audits.length
-
-const moduleButtons = document.querySelectorAll('.button-row button')
-
-moduleButtons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-        moduleButtons.forEach((b) => b.classList.remove('selected'))
-        btn.classList.add('selected')
-        console.log(`Selected: ${btn.textContent}`)
-    })
-})
 
 const fetchUserData = async () => {
     try {
@@ -61,64 +49,59 @@ const fetchUserData = async () => {
             },
             body: JSON.stringify({
                 query: `
-query {
-  user {
-    id
-    login
-    email
-    firstName
-    lastName
-    auditRatio
-
-    # existing detailed transactions filtered by type "xp"
-    transactions(where: {type: {_eq: "xp"}}) {
-      amount
-      createdAt
-      object {
-        name
-        type
-      }
-    }
-
-    # new aggregate field for xp transactions filtered by event.object.name = "Module"
-    transactions_aggregate(
-      where: {
-        type: { _eq: "xp" }
-        event: { object: { name: { _eq: "Module" } } }
-      }
-    ) {
-      aggregate {
-        sum {
-          amount
-        }
-      }
-    }
-
-    progresses {
-      grade
-      createdAt
-      object {
-        id
-        name
-        type
-      }
-    }
-
-    results {
-      grade
-      createdAt
-      object {
-        id
-        name
-        type
-      }
-    }
-  }
-}
+                query {
+                  user {
+                    id
+                    login
+                    email
+                    firstName
+                    lastName
+                    auditRatio
+                    transactions(where: { type: { _eq: "xp" } }) {
+                      amount
+                      createdAt
+                      object {
+                        name
+                        type
+                      }
+                    }
+                    transactions_aggregate(
+                      where: {
+                        type: { _eq: "xp" }
+                      }
+                    ) {
+                      aggregate {
+                        sum {
+                          amount
+                        }
+                      }
+                    }
+                    progresses {
+                      grade
+                      createdAt
+                      object {
+                        id
+                        name
+                        type
+                      }
+                    }
+                    results {
+                      grade
+                      createdAt
+                      object {
+                        id
+                        name
+                        type
+                      }
+                    }
+                  }
+                }
                 `
             })
         })
+
         const result = await res.json()
+
         if (result.errors) {
             console.error('GraphQL Errors:', JSON.stringify(result.errors, null, 2))
             alert('Token expired or invalid. Please log in again.')
@@ -126,23 +109,43 @@ query {
             window.location.replace('login.html')
             return
         }
+
         const user = result.data.user[0]
         if (!user) throw new Error('User not found')
-        document.getElementById('full-name').textContent = (user.firstName || 'alo') + ' ' + (user.lastName || 'alo')
-        usernameDisplay.textContent = user.login
+
+        // Update all the display elements
+        // document.getElementById('profile-image').textContent = "https://discord.zone01oujda.ma//assets/pictures/" + login + ".jpg"
+        document.getElementById('full-name').textContent = (user.firstName || 'User') + ' ' + (user.lastName || '')
+        document.getElementById('username-display').textContent = user.login
+        document.getElementById('username-display-card').textContent = user.login
+        document.getElementById('first-name').textContent = user.firstName || 'N/A'
+        document.getElementById('last-name').textContent = user.lastName || 'N/A'
         document.getElementById('email').textContent = user.email
+
         profileData = user
 
         const auditRatio = user.auditRatio
-        document.getElementById('audit-ratio').textContent = `Audit Ratio: ${auditRatio.toLocaleString()}`
+        document.getElementById('audit-ratio').textContent = `Audit Ratio: ${auditRatio.toFixed(2)}`
 
         const xpSum = user.transactions_aggregate.aggregate.sum.amount || 0
-        
-        document.getElementById('total-xp').textContent = `XP Sum: ${xpSum.toLocaleString()}`
+        const xpInKb = (xpSum / 1000).toFixed(1)
+        document.getElementById('total-xp').textContent = `XP: ${xpInKb} kB`
+
     } catch (error) {
         console.error('Error loading profile:', error.message)
         alert('Failed loading profile data')
     }
 }
 
+// Add keyboard support for accessibility
+document.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+        if (event.target.classList.contains('expand-btn')) {
+            event.preventDefault();
+            toggleExpand();
+        }
+    }
+});
+
+// Load user data when page loads
 fetchUserData()
