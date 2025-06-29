@@ -12,14 +12,16 @@ function toggleExpand() {
         content.classList.add('expanded');
         text.textContent = 'Hide Details';
         icon.classList.add('rotated');
+        icon.textContent = 'expand_less';
     } else {
         content.classList.remove('expanded');
         text.textContent = 'Show Details';
         icon.classList.remove('rotated');
+        icon.textContent = 'expand_more';
     }
 }
 
-// Your existing functionality
+// Authentication and token handling
 let token = localStorage.getItem('jwt')
 
 if (!token) window.location.replace('login.html')
@@ -30,15 +32,18 @@ if (token.startsWith('"') && token.endsWith('"')) {
 
 token = token.trim()
 
+// Logout functionality
 document.getElementById('logout-btn').addEventListener('click', () => {
     localStorage.removeItem('jwt')
     window.location.replace('login.html')
 })
 
+// Global variables
 const usernameDisplay = document.getElementById('username-display')
 let profileData = {}
 let audits = []
 
+// Fetch user data from GraphQL API
 const fetchUserData = async () => {
     try {
         const res = await fetch('https://learn.zone01oujda.ma/api/graphql-engine/v1/graphql', {
@@ -114,28 +119,12 @@ const fetchUserData = async () => {
         if (!user) throw new Error('User not found')
 
         // Update all the display elements
-        // document.getElementById('profile-image').textContent = "https://discord.zone01oujda.ma//assets/pictures/" + login + ".jpg"
         document.getElementById('full-name').textContent = (user.firstName || 'User') + ' ' + (user.lastName || '')
         document.getElementById('username-display').textContent = user.login
         document.getElementById('username-display-card').textContent = user.login
         document.getElementById('first-name').textContent = user.firstName || 'N/A'
         document.getElementById('last-name').textContent = user.lastName || 'N/A'
         document.getElementById('email').textContent = user.email
-
-        const profileImageUrl = "https://discord.zone01oujda.ma/assets/pictures/" + user.login + ".jpg"
-        const profileRoot = document.getElementById("profile-root")
-        profileRoot.innerHTML = ''
-
-        // Create and insert the image inside the profile image container
-        const profileImageContainer = document.createElement('div')
-        profileImageContainer.className = 'profile-image'
-
-        const img = document.createElement('img')
-        img.src = profileImageUrl
-        img.alt = user.login
-
-        profileImageContainer.appendChild(img)
-        profileRoot.appendChild(profileImageContainer)
 
         profileData = user
 
@@ -162,5 +151,10 @@ document.addEventListener('keydown', function (event) {
     }
 });
 
-// Load user data when page loads
+// Initialize the page
+document.addEventListener('DOMContentLoaded', function() {
+    fetchUserData();
+});
+
+// Load user data when page loads (fallback)
 fetchUserData()
