@@ -5,7 +5,7 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
   padding: 20px;
@@ -32,8 +32,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  position: relative;
 }
 
 .profile-image img {
@@ -45,6 +46,12 @@ body {
 .profile-image::before {
   content: "👤";
   font-size: 24px;
+  position: absolute;
+  z-index: 1;
+}
+
+.profile-image img.loaded::before {
+  display: none;
 }
 
 .username {
@@ -82,22 +89,28 @@ body {
   transform: rotate(180deg);
 }
 
-.card {
+.card,
+.stats-card {
   background: white;
   border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   max-width: 500px;
-  margin: 0 auto;
+  margin: 0 auto 20px auto;
   transition: all 0.3s ease;
 }
 
-.card-header {
+.card-header,
+.stats-header {
   font-size: 24px;
   font-weight: 700;
   color: #2d3748;
   margin-bottom: 20px;
   text-align: center;
+}
+
+.stats-header {
+  font-size: 20px;
 }
 
 .info-item {
@@ -169,14 +182,68 @@ body {
   font-style: italic;
 }
 
+/* Stats Card Styles */
+.stats-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.progress-circle-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-circle {
+  transform: rotate(-90deg);
+}
+
+.progress-text {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: #2d3748;
+}
+
+.recent-projects {
+  width: 100%;
+  text-align: center;
+}
+
+.recent-projects h4 {
+  color: #4a5568;
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+.project-item {
+  background: rgba(102, 126, 234, 0.1);
+  padding: 8px 12px;
+  margin: 6px 0;
+  border-radius: 6px;
+  color: #2d3748;
+  font-weight: 500;
+}
+
 @media (max-width: 768px) {
   .header {
-      flex-direction: column;
-      gap: 16px;
-      align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
   }
 
-  .card {
-      margin: 20px 0;
+  .card,
+  .stats-card {
+    margin: 20px 0;
+  }
+
+  .stats-content {
+    flex-direction: column;
   }
 }

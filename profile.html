@@ -10,8 +10,10 @@
 <body>
     <div class="header">
         <div class="profile-section">
-            <div class="profile-image">
-                <!-- Placeholder for profile image -->
+            <div id="profile-root">
+                <div class="profile-image">
+                    <!-- Placeholder for profile image -->
+                </div>
             </div>
             <div class="username" id="username-display">Loading...</div>
         </div>
@@ -62,6 +64,31 @@
             <span id="expandText">Show Details</span>
             <i class="material-icons expand-icon" id="expandIcon">expand_more</i>
         </button>
+    </div>
+
+    <!-- Project Success Rate Section -->
+    <div class="stats-card">
+        <div class="stats-header">Project Success Rate</div>
+        <div class="stats-content">
+            <div class="progress-circle-container">
+                <svg class="progress-circle" width="120" height="120">
+                    <circle cx="60" cy="60" r="50" stroke="#e2e8f0" stroke-width="8" fill="none"/>
+                    <circle id="progress-bar" cx="60" cy="60" r="50" stroke="#667eea" stroke-width="8" 
+                            fill="none" stroke-linecap="round" 
+                            stroke-dasharray="314" stroke-dashoffset="314"
+                            transform="rotate(-90 60 60)"/>
+                </svg>
+                <div class="progress-text">
+                    <span id="success-percentage">0%</span>
+                </div>
+            </div>
+            <div class="recent-projects">
+                <h4>Latest Validated Projects:</h4>
+                <div id="recent-projects-list">
+                    <div class="project-item">Loading...</div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="handleprofil.js"></script>
