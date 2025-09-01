@@ -54,54 +54,51 @@ const fetchUserData = async () => {
             },
             body: JSON.stringify({
                 query: `
-                query {
-                  user {
-                    id
-                    login
-                    email
-                    firstName
-                    lastName
-                    auditRatio
-                    transactions(where: { type: { _eq: "xp" } }) {
-                      amount
-                      createdAt
-                      object {
-                        name
-                        type
-                      }
-                    }
-                    transactions_aggregate(
-                      where: {
-                        type: { _eq: "xp" }
-                      }
-                    ) {
-                      aggregate {
-                        sum {
-                          amount
-                        }
-                      }
-                    }
-                    progresses {
-                      grade
-                      createdAt
-                      object {
-                        id
-                        name
-                        type
-                      }
-                    }
-                    results {
-                      grade
-                      createdAt
-                      object {
-                        id
-                        name
-                        type
-                      }
-                    }
-                  }
-                }
-                `
+  query {
+    user {
+      login
+      firstName
+      lastName
+      email
+      campus
+      auditRatio
+      totalUp
+      totalDown
+      transactions(
+        where: {
+          _and: [
+            { type: { _eq: "level" } },
+            { eventId: { _eq: 41 } }
+          ]
+        }
+        order_by: { amount: desc }
+        limit: 1
+      ) {
+        amount
+      }
+      xps(
+        where: { originEventId: { _eq: 41 } }
+        order_by: { amount: asc }
+      ) {
+        path
+        amount
+      }
+    }
+    totalXp: transaction_aggregate(
+      where: {
+        type: { _eq: "xp" },
+        eventId: { _eq: 41 }
+      }
+    ) {
+      aggregate {
+        sum {
+          amount
+        }
+      }
+    }
+  }
+`
+
             })
         })
 
@@ -125,15 +122,15 @@ const fetchUserData = async () => {
         document.getElementById('first-name').textContent = user.firstName || 'N/A'
         document.getElementById('last-name').textContent = user.lastName || 'N/A'
         document.getElementById('email').textContent = user.email
-
+        document.getElementById('audit-ratio').textContent = user.auditRatio ? user.auditRatio.toFixed(2) : 'N/A'    
         profileData = user
 
-        const auditRatio = user.auditRatio
-        document.getElementById('audit-ratio').textContent = `Audit Ratio: ${auditRatio.toFixed(2)}`
-
-        const xpSum = user.transactions_aggregate.aggregate.sum.amount || 0
-        const xpInKb = (xpSum / 1000).toFixed(1)
-        document.getElementById('total-xp').textContent = `XP: ${xpInKb} kB`
+        // const auditRatio = user.auditRatio ?? 0;
+        // document.getElementById('audit-ratio').textContent = `Audit Ratio: ${auditRatio.toFixed(2)}`;
+        
+        // const xpSum = user.transactions_aggregate.aggregate.sum.amount || 0
+        // const xpInKb = (xpSum / 1000).toFixed(1)
+        // document.getElementById('total-xp').textContent = `XP: ${xpInKb} kB`
 
     } catch (error) {
         console.error('Error loading profile:', error.message)
@@ -156,5 +153,3 @@ document.addEventListener('DOMContentLoaded', function() {
     fetchUserData();
 });
 
-// Load user data when page loads (fallback)
-fetchUserData()
